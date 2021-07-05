@@ -20,3 +20,7 @@ endpoints:
 
 nats.addresses:
 - nats://localhost:4222
+
+#Para rodar o nats use esse dois trechos para ter uma imagem do docker
+# docker pull nats
+#  docker run -d --name nats-main -p 4222:4222 -p 6222:6222 -p 8222:8222 nats
