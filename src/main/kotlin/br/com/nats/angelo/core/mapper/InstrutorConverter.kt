@@ -17,8 +17,8 @@ class InstrutorConverter {
         fun instutorRequestToInstrutor(instrutorRequest: InstrutorRequest)=
             Instrutor(instrutorRequest.id,instrutorRequest.nome,instrutorRequest.cpf,instrutorRequest.descricao,instrutorRequest.numArmas)
 
-        fun instrutorEventToInstrutor(id:String)=
-            Instrutor(id=id,"","","",0)
+        fun instrutorEventToInstrutor(id: InstrutorRequest)=
+            Instrutor(id=id.toString(),"","","",0)
 
         fun instrutorToInstrutorEvent(instrutor: Instrutor)=
             InstrutorEvent(instrutor.id,instrutor.nome,instrutor.cpf,instrutor.descricao,instrutor.numArmas)

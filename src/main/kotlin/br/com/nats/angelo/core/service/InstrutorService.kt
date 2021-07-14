@@ -10,7 +10,6 @@ import javax.inject.Singleton
 @Singleton
 class InstrutorService(private val service: NatsServicePort):InstrutorServicePort {
 
-    private  val LOGGER = LoggerFactory.getLogger(this::class.java)
 
     override fun sendCreateMessage(instrutor: Instrutor) {
         service.sendCreateNats(

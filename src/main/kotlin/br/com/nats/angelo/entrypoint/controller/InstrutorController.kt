@@ -1,7 +1,6 @@
 package br.com.nats.angelo.entrypoint.controller
 
 import br.com.nats.angelo.core.mapper.InstrutorConverter
-import br.com.nats.angelo.core.model.Instrutor
 import br.com.nats.angelo.core.port.InstrutorServicePort
 import br.com.nats.angelo.entrypoint.dto.InstrutorRequest
 import io.micronaut.http.HttpResponse
@@ -22,16 +21,17 @@ class InstrutorController(private val instrutorServicePort: InstrutorServicePort
     }
 
     @Delete("/{id}")
-    fun DeletaInstrutorParaNats(@QueryValue id: UUID):HttpResponse<Any>{
-
-        instrutorServicePort.sendDeleteMessage(InstrutorConverter.instrutorEventToInstrutor(id=id.toString()))
+    fun DeletaInstrutorParaNats(@PathVariable id: UUID):HttpResponse<Any>{
+        val instrutoDTO = InstrutorRequest(id.toString(),"","","",0)
+        instrutorServicePort.sendDeleteMessage(InstrutorConverter.instrutorEventToInstrutor(instrutoDTO))
         return HttpResponse.accepted()
     }
 
     @Put
-    fun UpdateInstrutorParaNats(@Body @Valid instrutorRequest: InstrutorRequest):HttpResponse<Any>{
+    fun UpdateInstrutorParaNats(@PathVariable id: UUID,@Body @Valid instrutorRequest: InstrutorRequest):HttpResponse<Any>{
 
-        instrutorServicePort.sendUpdateMessage(InstrutorConverter.instutorRequestToInstrutor(instrutorRequest))
+        val instrutorDTO = InstrutorRequest(id.toString(),instrutorRequest.nome,instrutorRequest.cpf,instrutorRequest.descricao,instrutorRequest.numArmas)
+        instrutorServicePort.sendUpdateMessage(InstrutorConverter.instutorRequestToInstrutor(instrutorDTO))
 
         return HttpResponse.accepted()
     }
